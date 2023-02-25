@@ -21,7 +21,8 @@ impl Config {
 }
 
 pub fn run(config: Config) {
-    let lines = fs::read_to_string(config.filename).unwrap();
+    // expect will panic
+    let lines = fs::read_to_string(config.filename).expect("Failed to load file");
 
     let results = if config.case_sensitive {
         search(&lines, &config.query)
