@@ -1,3 +1,9 @@
+use std::env;
+
 fn main() {
-    println!("Hello World!")
+    let args = env::args();
+
+    for arg in args {
+        println!("{}", arg);
+    }
 }
