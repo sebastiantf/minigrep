@@ -1,3 +1,4 @@
+use std::env;
 use std::fs;
 
 #[derive(Debug)]
@@ -8,7 +9,9 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(query: String, filename: String, case_sensitive: bool) -> Config {
+    pub fn new(query: String, filename: String) -> Config {
+        let case_sensitive = env::var("CASE_SENSITIVE").is_ok();
+
         Config {
             query,
             filename,
