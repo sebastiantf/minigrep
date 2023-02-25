@@ -1,4 +1,3 @@
-use core::panic;
 use std::env;
 use std::fs;
 
@@ -10,10 +9,10 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: Vec<String>) -> Config {
+    pub fn new(args: Vec<String>) -> Result<Config, &'static str> {
         // prevent index out of bounds error
         if args.len() < 3 {
-            panic!("Not enough args");
+            return Err("Not enough args");
         }
 
         let query = args[1].clone();
@@ -21,11 +20,11 @@ impl Config {
 
         let case_sensitive = env::var("CASE_SENSITIVE").is_ok();
 
-        Config {
+        Ok(Config {
             query,
             filename,
             case_sensitive,
-        }
+        })
     }
 }
 
