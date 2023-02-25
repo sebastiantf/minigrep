@@ -1,3 +1,4 @@
+use core::panic;
 use std::env;
 use std::fs;
 
@@ -10,6 +11,11 @@ pub struct Config {
 
 impl Config {
     pub fn new(args: Vec<String>) -> Config {
+        // prevent index out of bounds error
+        if args.len() < 3 {
+            panic!("Not enough args");
+        }
+
         let query = args[1].clone();
         let filename = args[2].clone();
 
