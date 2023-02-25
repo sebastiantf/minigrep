@@ -4,11 +4,16 @@ use std::fs;
 pub struct Config {
     query: String,
     filename: String,
+    case_sensitive: bool,
 }
 
 impl Config {
-    pub fn new(query: String, filename: String) -> Config {
-        Config { query, filename }
+    pub fn new(query: String, filename: String, case_sensitive: bool) -> Config {
+        Config {
+            query,
+            filename,
+            case_sensitive,
+        }
     }
 }
 
