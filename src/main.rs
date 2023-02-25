@@ -12,5 +12,8 @@ fn main() {
 
     println!("{:#?}", config);
 
-    minigrep::run(config);
+    minigrep::run(config).unwrap_or_else(|error| {
+        println!("Error running: {}", error);
+        process::exit(1)
+    });
 }

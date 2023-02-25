@@ -30,8 +30,8 @@ impl Config {
 }
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    // expect will panic
-    let lines = fs::read_to_string(config.filename).expect("Failed to load file");
+    // propagate error instead of panic
+    let lines = fs::read_to_string(config.filename)?;
 
     let results = if config.case_sensitive {
         search(&lines, &config.query)
