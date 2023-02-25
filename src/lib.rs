@@ -9,7 +9,10 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(query: String, filename: String) -> Config {
+    pub fn new(args: Vec<String>) -> Config {
+        let query = args[1].clone();
+        let filename = args[2].clone();
+
         let case_sensitive = env::var("CASE_SENSITIVE").is_ok();
 
         Config {
