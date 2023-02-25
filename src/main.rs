@@ -1,9 +1,11 @@
 use std::env;
 
-fn main() {
-    let args = env::args();
+use minigrep::Config;
 
-    for arg in args {
-        println!("{}", arg);
-    }
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    let config = Config::new(args[1].clone(), args[2].clone());
+
+    println!("{:#?}", config);
 }
