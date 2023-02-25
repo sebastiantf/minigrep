@@ -32,7 +32,15 @@ fn search<'a>(contents: &'a str, query: &str) -> Vec<&'a str> {
 }
 
 fn search_case_insensitive<'a>(contents: &'a str, query: &str) -> Vec<&'a str> {
-    vec![]
+    let mut result: Vec<&str> = Vec::new();
+
+    for line in contents.lines() {
+        if line.to_lowercase().contains(&query.to_lowercase()) {
+            result.push(line);
+        }
+    }
+
+    result
 }
 
 #[cfg(test)]
@@ -82,7 +90,10 @@ To an admiring bog!";
             vec![
                 "I'm nobody! Who are you?",
                 "Are you nobody, too?",
-                "How dreary to be somebody!"
+                "How dreary to be somebody!",
+                "Body",
+                "body",
+                "Every Body"
             ],
             search_case_insensitive(contents, query)
         );
