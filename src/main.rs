@@ -8,4 +8,6 @@ fn main() {
     let config = Config::new(args[1].clone(), args[2].clone());
 
     println!("{:#?}", config);
+
+    minigrep::run(config);
 }
