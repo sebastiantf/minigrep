@@ -1,4 +1,5 @@
 use std::env;
+use std::error::Error;
 use std::fs;
 
 #[derive(Debug)]
@@ -28,7 +29,7 @@ impl Config {
     }
 }
 
-pub fn run(config: Config) {
+pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // expect will panic
     let lines = fs::read_to_string(config.filename).expect("Failed to load file");
 
@@ -41,6 +42,8 @@ pub fn run(config: Config) {
     for lines in results {
         println!("{}", lines);
     }
+
+    Ok(())
 }
 
 fn search<'a>(contents: &'a str, query: &str) -> Vec<&'a str> {
