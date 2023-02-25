@@ -18,9 +18,16 @@ impl Config {
 }
 
 pub fn run(config: Config) {
-    let lines = fs::read_to_string(config.filename);
-    for line in lines {
-        println!("{}", line);
+    let lines = fs::read_to_string(config.filename).unwrap();
+
+    let results = if config.case_sensitive {
+        search(&lines, &config.query)
+    } else {
+        search_case_insensitive(&lines, &config.query)
+    };
+
+    for lines in results {
+        println!("{}", lines);
     }
 }
 
