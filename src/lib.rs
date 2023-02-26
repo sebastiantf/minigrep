@@ -10,15 +10,27 @@ pub struct Config {
 }
 
 impl Config {
-    // we have a reference input, so the lifetime of the returning &str will be the same in this case
-    pub fn new(args: &Vec<String>) -> Result<Config, &str> {
+    // we have an owned value here, so compiler cannot set any lifetime for the returned &str automatically, since there are no reference inputs
+    // iterator should be mutable
+    pub fn new(mut args: env::Args) -> Result<Config, &'static str> {
         // prevent index out of bounds error
         if args.len() < 3 {
             return Err("Not enough args");
         }
 
-        let query = args[1].clone();
-        let filename = args[2].clone();
+        // skip first arg
+        args.next();
+
+        let query = if let Some(query) = args.next() {
+            query
+        } else {
+            return Err("No arg for query");
+        };
+        let filename = if let Some(filename) = args.next() {
+            filename
+        } else {
+            return Err("No arg for filename");
+        };
 
         let case_sensitive = env::var("CASE_SENSITIVE").is_ok();
 

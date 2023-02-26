@@ -3,9 +3,8 @@ use std::{env, process};
 use minigrep::Config;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    let config = Config::new(&args).unwrap_or_else(|error| {
+    // env.args() is an iterator
+    let config = Config::new(env::args()).unwrap_or_else(|error| {
         eprintln!("Error preparing config: {}", error);
         process::exit(1)
     });
