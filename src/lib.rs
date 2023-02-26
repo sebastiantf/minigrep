@@ -10,7 +10,8 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: Vec<String>) -> Result<Config, &'static str> {
+    // we have a reference input, so the lifetime of the returning &str will be the same in this case
+    pub fn new(args: &Vec<String>) -> Result<Config, &str> {
         // prevent index out of bounds error
         if args.len() < 3 {
             return Err("Not enough args");
